@@ -65,6 +65,8 @@ public class TransFormTest05_connect {
             }
         });
 
+        System.out.println("lfp 在线教学ing。。。。。。。");
+
         resultDataStream.print();
 
         env.execute();
