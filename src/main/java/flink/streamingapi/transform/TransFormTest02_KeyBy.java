@@ -1,7 +1,6 @@
 package flink.streamingapi.transform;
 
 import flink.streamingapi.bean.SensorReader;
-import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.java.tuple.Tuple;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
@@ -32,7 +31,7 @@ public class TransFormTest02_KeyBy {
 
         // 上述引入拉姆达表达式写法如下
         DataStream<SensorReader> mapDataStream = streamSource.map(line -> {
-            String[] fields = line.split("\t");
+            String[] fields = line.split(" ");
             return new SensorReader(new String(fields[0]), new Long(fields[1]), new Double(fields[2]));
         });
 
