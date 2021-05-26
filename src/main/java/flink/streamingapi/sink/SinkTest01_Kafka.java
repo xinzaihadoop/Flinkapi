@@ -34,7 +34,7 @@ public class SinkTest01_Kafka {
         properties.setProperty("bootstrap.servers", "10.65.55.11:9092");
         properties.setProperty("group.id", "test-topic-[0-3]");
 
-        DataStreamSink<SensorReader> kafkaSink = sensorReaderDataStream.addSink(new FlinkKafkaProducer<SensorReader>("test01:9092", "MovieBook_xll_test", (KeyedSerializationSchema<SensorReader>) new SimpleStringSchema()));
+        sensorReaderDataStream.addSink(new FlinkKafkaProducer<SensorReader>("test01:9092", "MovieBook_xll_test", (KeyedSerializationSchema<SensorReader>) new SimpleStringSchema()));
         
         env.execute();
     }
