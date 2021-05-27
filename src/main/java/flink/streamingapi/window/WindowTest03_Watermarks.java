@@ -2,6 +2,7 @@ package flink.streamingapi.window;
 
 import flink.streamingapi.bean.SensorReader;
 import org.apache.flink.api.common.functions.AggregateFunction;
+import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
@@ -22,7 +23,9 @@ public class WindowTest03_Watermarks {
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(1);
-
+        //使用EvenTime 设置时间事件语义
+        env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
+        env.getConfig().setAutoWatermarkInterval(100);
         DataStreamSource<String> source = env.socketTextStream("test01", 7777);
         DataStream<SensorReader> srDataStream = source.map(lines -> {
             String[] split = lines.split(" ");

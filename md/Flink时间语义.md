@@ -18,3 +18,18 @@ Flink-Watermark：
     ·Watermark是一条特殊的记录
     ·Watermark必须单调递增，以确保任务的事件时间是在向前推进而不是在往后退
     ·Watermark与数据的时间戳有关
+
+实现方式：
+第一种实现 乱序数据设置Watermarks水位线
+    srDataStream.assignTimestampsAndWatermarks(new BoundedOutOfOrdernessTimestampExtractor < SensorReader > ( Time.seconds ( 2))
+第二种实现，周期性生成Watermarks,所以不需要传入水位延迟设定时间参数
+    srDataStream.assignTimestampsAndWatermarks(new AscendingTimestampExtractor < SensorReader > ()
+第三种实现，数据有序的Watermarks的设置
+    srDataStream.assignTimestamps(new TimestampExtractor<SensorReader>()
+         
+若是设置了Watermarks还是存在数据乱序的情况，则可以手动设置数据延迟，再不行就设置
+    srDataStream.TimeWindow(Time.Seconds(15)).allowedLateness(Time.minutes(1))
+此处的设定意思是当Watermarks不能满足系统处理乱序的情况时，手动设置一分钟等待时间，让窗口晚一分钟关闭执行
+若是还不想将后续的垃圾（延迟）数据丢掉，则可以设置侧输出流，让其得到计算处理
+srDataStream.TimeWindow(Time.Seconds(15)).allowedLateness(Time.minutes(1)).sideOutputLateData("测输出流标签")
+
