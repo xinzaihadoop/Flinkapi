@@ -25,3 +25,18 @@ Flink中：
             LIst state
             Map state
             Reducing state & Aggregating state
+
+Flink的状态后端：
+    状态后端可以选择保存在
+    1、MemoryStateBackend： 本地内存 （特点：将检查点和状态都放在本地JVM堆内存中。快速，低延迟，不稳定）
+    2、FSStateBackend：  HDFS文件系统  （特点：将checkpoint保存在FSFile文件系统上，将本地状态保存进本地JVM堆内存中）
+    3、RocksDBsStateBackend：RocksDB数据库中 （特点将所有状态序列化后保存进数据库）
+
+Flink设置检查点Checkpoint：
+
+
+
+Flink设置失败重启策略：
+
+
+

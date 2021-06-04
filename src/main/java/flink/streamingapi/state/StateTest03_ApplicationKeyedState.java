@@ -13,7 +13,7 @@ import org.apache.flink.util.Collector;
 
 /**
  * @ClassName: StateTest03_ApplicationKeyedState
- * @Description: TODO
+ * @Description: TODO 需求 检测温度变化上下波动变化10度范围时发出警报信息
  * @Author: MovieBook_xinll
  * @Date: 2021/5/27 17:03
  * @Version: v1.0
